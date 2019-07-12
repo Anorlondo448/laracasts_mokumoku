@@ -30,8 +30,6 @@ Route::get('/', function () {
 Route::resource('projects', 'ProjectsController');
 
 Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
-Route::post('/completed-tasks/{task}', 'CompletedTasksController@store');
-Route::delete('/completed-tasks/{task}', 'CompletedTasksController@destroy');
+Route::patch('/tasks/{task}', 'ProjectTasksController@update');
 Auth::routes();
-
-Route::get('/signup', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
