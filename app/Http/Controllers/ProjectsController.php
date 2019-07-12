@@ -9,6 +9,11 @@ use Illuminate\Filesystem\Filesystem;
 
 class ProjectsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +21,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::where('owner_id', auth()->id())->get();    // select * from projects where owner_id = xxx;
 
         return view('projects.index', compact('projects'));
     }
@@ -44,6 +49,7 @@ class ProjectsController extends Controller
               'title' => ['required', 'min:3', 'max:25'],
               'description' => ['required', 'min:3']
             ])
+            + ['owner_id' => auth()->id()]
         );
 
         return redirect('/projects');
@@ -57,8 +63,6 @@ class ProjectsController extends Controller
      */
     public function show(Project $project, Twitter $twitter)
     {
-        dd($twitter);
-
         return view('projects.show', compact('project'));
     }
     // public function show(Filesystem $file)
