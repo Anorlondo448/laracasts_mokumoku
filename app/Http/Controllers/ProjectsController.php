@@ -21,7 +21,14 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::where('owner_id', auth()->id())->get();    // select * from projects where owner_id = xxx;
+        $projects = Project::where('owner_id', auth()->id())->take(2)->get();    // select * from projects where owner_id = xxx;
+        
+        // cache()->rememberForever('stats', function() {
+        //     return ['lessons' => 1300, 'hours' => 50000, 'series' => 100 ];
+        // });
+
+        // $stats = cache()->get('stats');
+        // dump($stats);
 
         return view('projects.index', compact('projects'));
     }
