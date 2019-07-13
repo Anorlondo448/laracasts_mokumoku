@@ -63,12 +63,10 @@ class ProjectsController extends Controller
      */
     public function show(Project $project, Twitter $twitter)
     {
+        abort_if(($project->owner_id !== auth()->id()), 403);
+
         return view('projects.show', compact('project'));
     }
-    // public function show(Filesystem $file)
-    // {
-    //     dd($file);
-    // }
 
     /**
      * Show the form for editing the specified resource.
