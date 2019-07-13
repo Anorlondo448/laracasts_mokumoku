@@ -4,6 +4,11 @@
 
     <h1 class="title">{{ $project->title }}</h1>
 
+    @can('update', $project)
+        <a href="">Update</a>
+    @endcan
+
+
     <div class="content">
         {{ $project->description }}
 

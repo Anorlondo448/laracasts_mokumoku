@@ -63,12 +63,12 @@ class ProjectsController extends Controller
      */
     public function show(Project $project, Twitter $twitter)
     {
+        // $this->authorize('update', $project);
+        // abort_if(\Gate::denies('update', $project), 403);
+        // abort_unless(\Gate::allows('update', $project), 403);
+
         return view('projects.show', compact('project'));
     }
-    // public function show(Filesystem $file)
-    // {
-    //     dd($file);
-    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -90,6 +90,7 @@ class ProjectsController extends Controller
      */
     public function update(Project $project)
     {
+        // $this->autorize('update', $project);
         $project->update(request(['title', 'description']));
 
         return redirect('/projects');
@@ -103,6 +104,7 @@ class ProjectsController extends Controller
      */
     public function destroy(Project $project)
     {
+        // $this->autorize('update', $project);
         $project->delete();
 
         return redirect('/projects');
