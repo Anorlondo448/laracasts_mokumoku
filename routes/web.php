@@ -27,7 +27,8 @@ Route::get('/', function () {
  * DELET /projects/1 (destroy)
  */
 
-Route::resource('projects', 'ProjectsController');
+Route::resource('projects', 'ProjectsController')->middleware('can:update,project');
+// Route::resource('projects', 'ProjectsController');
 
 Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
 Route::patch('/tasks/{task}', 'ProjectTasksController@update');
