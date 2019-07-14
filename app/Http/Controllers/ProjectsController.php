@@ -6,6 +6,7 @@ use App\Project;
 use App\Services\Twitter;
 use Illuminate\Http\Request;
 use Illuminate\Filesystem\Filesystem;
+use App\Mail\ProjectCreated;
 
 class ProjectsController extends Controller
 {
@@ -22,6 +23,13 @@ class ProjectsController extends Controller
     public function index()
     {
         $projects = Project::where('owner_id', auth()->id())->get();    // select * from projects where owner_id = xxx;
+        
+        // cache()->rememberForever('stats', function() {
+        //     return ['lessons' => 1300, 'hours' => 50000, 'series' => 100 ];
+        // });
+
+        // $stats = cache()->get('stats');
+        // dump($stats);
 
         return view('projects.index', compact('projects'));
     }
@@ -44,12 +52,16 @@ class ProjectsController extends Controller
      */
     public function store()
     {
-        Project::create(
+        $project = Project::create(
             request()->validate([
               'title' => ['required', 'min:3', 'max:25'],
               'description' => ['required', 'min:3']
             ])
             + ['owner_id' => auth()->id()]
+        );
+
+        \Mail::to('jeffery@laracasts.com')->send(
+            new ProjectCreated($project)
         );
 
         return redirect('/projects');
