@@ -52,7 +52,7 @@ class ProjectsController extends Controller
 
         $project = Project::create($attributes);
 
-        \Mail::to('jeffery@laracasts.com')->send(
+        \Mail::to($project->owner->email)->send(
             new ProjectCreated($project)
         );
 
