@@ -24,10 +24,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        // user_id === 1をadminとして扱う
-        Gate::before(function ($user) {
-            return $user->id == 1;
-        });
     }
 }

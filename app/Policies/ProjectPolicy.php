@@ -19,6 +19,6 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project)
     {
-        return $project->owner_id == $user->id;
+        return $project->owner_id == auth()->id();
     }
 }
