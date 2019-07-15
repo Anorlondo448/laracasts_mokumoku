@@ -68,9 +68,6 @@ class ProjectsController extends Controller
     public function show(Project $project, Twitter $twitter)
     {
         $this->authorize('update', $project);
-        // abort_if(\Gate::denies('update', $project), 403);
-        // abort_unless(\Gate::allows('update', $project), 403);
-
         return view('projects.show', compact('project'));
     }
 
