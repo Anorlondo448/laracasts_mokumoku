@@ -11,7 +11,7 @@ class ProjectPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can update the project.
+     * Determine whether the user can view the project.
      *
      * @param  \App\User  $user
      * @param  \App\Project  $project
